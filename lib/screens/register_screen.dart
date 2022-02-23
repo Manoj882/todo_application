@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_application/constants/constants.dart';
 import 'package:todo_application/utils/general_text_field.dart';
+import 'package:todo_application/widgets/general_alert_dialog.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -74,15 +75,26 @@ class RegisterScreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
+                      GeneralAlertDialog().customLoadingDialog(context);
                       if (formKey.currentState!.validate()) {
                         final email = emailController.text;
                         final password = passwordController.text;
 
+                        try{
                         final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
                         Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        }
+
+                        catch(ex){
+                          Navigator.of(context).pop();
+                          final errorMessage = ex.toString().split("]")[1].trim();
+                          GeneralAlertDialog().customAlertDialog(context, errorMessage);
+                          // print("The error is: ${ex.toString()}");
+                        }
                       }
                     },
                     child: const Text('Register'),

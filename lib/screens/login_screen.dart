@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:todo_application/screens/home_screen.dart';
 import 'package:todo_application/screens/register_screen.dart';
 import 'package:todo_application/utils/general_text_field.dart';
+import 'package:todo_application/widgets/general_alert_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -86,10 +87,13 @@ class LoginScreen extends StatelessWidget {
                         Center(
                           child: ElevatedButton(
                             onPressed: () async {
+                              GeneralAlertDialog().customLoadingDialog(context);
+
                               if (formKey.currentState!.validate()) {
                                 final email = emailController.text;
                                 final password = passwordController.text;
 
+                                try{
                                 final user = await FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
                                   email: email,
@@ -101,6 +105,12 @@ class LoginScreen extends StatelessWidget {
                                     builder: (_) => HomeScreen(),
                                   ),
                                 );
+                                }
+                                catch(ex){
+                                  Navigator.of(context).pop();
+                                  final errorMessage = ex.toString().split("]")[1].trim();
+                                  GeneralAlertDialog().customAlertDialog(context, errorMessage);
+                                }
                               }
                             },
                             child: const Text('Login'),
