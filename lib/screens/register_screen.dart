@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_application/constants/constants.dart';
-import 'package:todo_application/utils/general_text_field.dart';
-import 'package:todo_application/widgets/general_alert_dialog.dart';
+import '/constants/constants.dart';
+import '/utils/general_text_field.dart';
+import '/widgets/general_alert_dialog.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -88,11 +88,25 @@ class RegisterScreen extends StatelessWidget {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                         }
+                        on FirebaseAuthException catch(e){
+                          print(e.code);
+                          String message = "";
+                          if(e.code == "email-already-in-use"){
+                           message = "The email address is already used";
+                          }
+                          else if(e.code == "invalid-email"){
+                            message = "The email address is invalid";
+                          }
+                          else if(e.code == "weak-password"){
+                            message = "Your password is too weak, try adding alphaneumeric characters";
+                          }
 
-                        catch(ex){
+                           Navigator.of(context).pop();             
+                          GeneralAlertDialog().customAlertDialog(context, message);
+                        }
+                          catch(ex){
                           Navigator.of(context).pop();
-                          final errorMessage = ex.toString().split("]")[1].trim();
-                          GeneralAlertDialog().customAlertDialog(context, errorMessage);
+                          GeneralAlertDialog().customAlertDialog(context, ex.toString());
                           // print("The error is: ${ex.toString()}");
                         }
                       }

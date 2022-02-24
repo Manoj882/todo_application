@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_application/constants/constants.dart';
-import 'package:todo_application/models/todo_model.dart';
-import 'package:todo_application/utils/date_formatter.dart';
-import 'package:todo_application/widgets/general_botttom_sheet.dart';
+import '/constants/constants.dart';
+import '/models/todo_model.dart';
+import '/utils/date_formatter.dart';
+import '/widgets/general_botttom_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -1,14 +1,12 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:todo_application/constants/constants.dart';
+import '/constants/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:todo_application/screens/home_screen.dart';
-import 'package:todo_application/screens/register_screen.dart';
-import 'package:todo_application/utils/general_text_field.dart';
-import 'package:todo_application/widgets/general_alert_dialog.dart';
+import '/screens/home_screen.dart';
+import '/screens/register_screen.dart';
+import '/utils/general_text_field.dart';
+import '/widgets/general_alert_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -106,10 +104,28 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 );
                                 }
+                                on FirebaseAuthException catch(e){
+                                  String message = "";
+                                  if(e.code == "user-not-found"){
+                                    message = "The user does not exist";
+                                  }
+                                  else if(e.code == "invalid-email"){
+                                    message = "The email address is invalid";
+                                  }
+                                  else if(e.code == "wrong-password"){
+                                    message = "Incorrect password";
+                                  }
+                                  else if(e.code == "too-many-requests"){
+                                    message = "Your account is locked. Please try again later";
+                                  }
+                                  
+                                  Navigator.of(context).pop();
+                                  GeneralAlertDialog().customAlertDialog(context,message);
+                                  
+                                }
                                 catch(ex){
                                   Navigator.of(context).pop();
-                                  final errorMessage = ex.toString().split("]")[1].trim();
-                                  GeneralAlertDialog().customAlertDialog(context, errorMessage);
+                                  GeneralAlertDialog().customAlertDialog(context, ex.toString());
                                 }
                               }
                             },
