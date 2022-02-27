@@ -43,6 +43,7 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
   @override
   Widget build(BuildContext context) {
     return  TextFormField(
+                  
                   keyboardType: widget.textInputType,
                   textInputAction: widget.textInputAction,
                   obscureText:toHide,

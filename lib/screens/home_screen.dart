@@ -6,7 +6,9 @@ import '/utils/date_formatter.dart';
 import '/widgets/general_botttom_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen(this.userId,{Key? key}) : super(key: key);
+
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                   await GeneralButtomSheet().customBottomSheet(context);
 
               if (todoName != null) {
-                final todoModel = TodoModel(todoName);
+                final todoModel = TodoModel(todoName,userId);
                 collection.add(todoModel.toMap());
               }
             },
@@ -36,7 +38,7 @@ class HomeScreen extends StatelessWidget {
       body: Padding(
         padding: basepadding,
         child: StreamBuilder(
-          stream: collection.orderBy('date').snapshots(),
+          stream: collection.where("userId", isEqualTo: userId).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -44,7 +46,7 @@ class HomeScreen extends StatelessWidget {
               );
             }
 
-            print(snapshot.data!.docs.last.data());
+            // print(snapshot.data!.docs.last.data());
 
             return SingleChildScrollView(
               child: ListView.builder(

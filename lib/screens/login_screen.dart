@@ -100,7 +100,7 @@ class LoginScreen extends StatelessWidget {
 
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (_) => HomeScreen(),
+                                    builder: (_) => HomeScreen(user.user!.uid),
                                   ),
                                 );
                                 }
@@ -159,7 +159,7 @@ class LoginScreen extends StatelessWidget {
                                 idToken: authenticatedUser.idToken,
                                 accessToken: authenticatedUser.accessToken,
                               );
-                              await FirebaseAuth.instance
+                              final UserCredential = await FirebaseAuth.instance
                                   .signInWithCredential(authProvider);
 
                               //Navi
@@ -167,7 +167,7 @@ class LoginScreen extends StatelessWidget {
                               //gate to home
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                  builder: (_) => const HomeScreen(),
+                                  builder: (_) => HomeScreen(UserCredential.user!.uid),
                                 ),
                               );
                             }
@@ -204,7 +204,7 @@ class LoginScreen extends StatelessWidget {
 
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (_) => const HomeScreen(),
+                                    builder: (_) => HomeScreen(user.user!.uid),
                                   ),
                                 );
                               },
