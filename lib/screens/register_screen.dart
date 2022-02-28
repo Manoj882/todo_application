@@ -75,8 +75,9 @@ class RegisterScreen extends StatelessWidget {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      GeneralAlertDialog().customLoadingDialog(context);
+                      
                       if (formKey.currentState!.validate()) {
+                        GeneralAlertDialog().customLoadingDialog(context);
                         final email = emailController.text;
                         final password = passwordController.text;
 

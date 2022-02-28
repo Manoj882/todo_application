@@ -12,6 +12,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(Theme.of(context).textTheme.subtitle1!.fontFamily);
+    print(Theme.of(context).textTheme.caption!.fontFamily);
+
+
     final fireStore = FirebaseFirestore.instance;
     final collection = fireStore.collection(TodoConstants.todo);
     // final stream = firestore.collection(TodoConstants.todo).doc('MwgsQop14nXbYUNRnngB');
@@ -96,6 +100,36 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+      bottomNavigationBar: customSwitch(),
+      
+    );
+  }
+}
+
+class customSwitch extends StatefulWidget {
+  const customSwitch({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<customSwitch> createState() => _customSwitchState();
+}
+
+class _customSwitchState extends State<customSwitch> {
+  bool isDarkMode = false;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text("Dark Mode"),
+      trailing: Switch(
+        value:  isDarkMode,
+        onChanged: (value){
+          isDarkMode = value;
+          setState(() {
+            
+          });
+        },
       ),
     );
   }

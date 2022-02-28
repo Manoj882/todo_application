@@ -48,39 +48,9 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
                   textInputAction: widget.textInputAction,
                   obscureText:toHide,
                   decoration: InputDecoration(
-                    hintText: 'Enter your ${widget.title}',
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blueAccent,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      
-                    ),
+                  hintText: 'Enter your ${widget.title}',
                   
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blueAccent,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  
-                    ),
-          
-                     errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  
-                    ),
-                    focusedErrorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  
-                    ),
-
-                    suffixIcon: widget.isObscure ?
+                  suffixIcon: widget.isObscure ?
                      IconButton(
                       icon: Icon(toHide ?
                         Icons.visibility_outlined
